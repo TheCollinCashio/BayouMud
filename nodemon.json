@@ -1,0 +1,9 @@
+{
+    "ext": "js",
+    "ignore": [
+        "node_modules/*",
+        "client/*"
+    ],
+    "exec": "heroku local",
+    "delay": "2000"
+}
