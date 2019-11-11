@@ -4,21 +4,66 @@ import {
   Switch,
   Route
 } from 'react-router-dom';
+import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+import { green, orange } from '@material-ui/core/colors';
+import { renderToStaticMarkup } from 'react-dom/server';
+import { makeStyles } from '@material-ui/styles';
 
-import Home from './Pages/Home';
-import About from './Pages/About';
+import Background from './components/utils/Background';
+import './App.css';
+import { UserInfoContext } from './Contexts';
+import AppBar from './components/AppBar';
+import Home from './pages/Home';
+import About from './pages/About';
+import LogIn from './pages/LogIn';
+
+const defaultTheme = createMuiTheme({
+  palette: {
+    primary: {
+      main: green[500]
+    },
+    secondary: {
+      main: orange[500]
+    }
+  }
+});
+
+const useStyles = makeStyles(theme => ({
+    root: {
+      backgroundRepeat: "repeat-y",
+      backgroundSize: "cover",
+      minHeight: "100%"
+    }
+}));
 
 export default function App() {
+  let classes = useStyles();
+  const [theme] = React.useState(defaultTheme);
+  const [userInfo, setUserInfo] = React.useState({ info: null });
+
+  const svgString = encodeURIComponent(renderToStaticMarkup(<Background theme={theme}/>));
+  const uri = `url("data:image/svg+xml,${svgString}")`;
+
   return (
-    <Router>
-      <Switch>
-          <Route exact path="/">
-            <Home />
-          </Route>
-          <Route path="/about">
-            <About />
-          </Route>
-        </Switch>
-    </Router>
+    <UserInfoContext.Provider className={classes.root} value={{ info: userInfo.info, setInfo: setUserInfo }}>
+      <ThemeProvider className={classes.root} theme={theme}>
+        <div className={classes.root} style={{backgroundImage: uri}}>
+          <AppBar />
+          <Router>
+            <Switch>
+              <Route exact path="/">
+                <Home />
+              </Route>
+              <Route path="/about">
+                <About />
+              </Route>
+              <Route path="/login">
+                <LogIn />
+              </Route>
+            </Switch>
+          </Router>
+        </div>
+      </ThemeProvider>
+    </UserInfoContext.Provider>
   )
 }
