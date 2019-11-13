@@ -12,6 +12,11 @@ function sendMSG(message) {
 myRib.exposeFunction(sendMSG);
 
 myRib.onConnect(() => {
+    if (process.env.NODE_ENV !== 'production') {
+        //  allow rib to be accessed via console app
+        console.log(`Let's develop great things 😀`);
+        window.myRib = myRib;
+    }
     ReactDOM.render(
         <App />,
         document.getElementById('root')
