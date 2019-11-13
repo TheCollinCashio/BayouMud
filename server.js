@@ -1,63 +1,48 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const path = require('path');
-const jwt = require('jsonwebtoken');
+const RibServer = require('rib-server').default;
 
-const { User } = require('./server/Models')
-const { checkToken } = require('./server/Token');
-
-const app = express();
-const port = process.env.PORT || 5000;
-const tokenKey = process.env.TOKEN_KEY;
-
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-
-app.get('/api/hello', (req, res, next) => {
-  res.send({ express: 'Hello From Express' });
-});
-
-app.post('/api/auth/signin', (req, res) => {
-  console.log(req.body);
-  let username = req.body.username;
-  let password = req.body.password;
-
-  console.log(username);
-  User.findOne({ username: username }, function (err, user) {
-    if (err) {
-      res.send(400).json(err);
-    } else {
-      user.comparePassword(password, function(err, isMatch) {
-        if(err) {
-          res.send(403).json(err);
-        }
-
-        if (isMatch) {
-          let token = jwt.sign({ username: username }, tokenKey, { expiresIn: '24h' });
-          res.json({
-            success: true,
-            message: 'Authentication successful!',
-            token: token
-          });
-        }
-      })
-    }
-  });
-});
-
-app.post('/api/secret', checkToken, (req, res) => {
-  console.log(req.body);
-  res.send(
-    `I received your POST request. This is what you sent me: ${req.body.post}`,
-  );
-});
+let PORT = process.env.PORT || 5000;
+RibServer.startServer(PORT, `Server Started on Port ${PORT}`);
 
 if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, 'client/build')));
-    
-  app.get('*', function(req, res) {
-    res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
-  });
+  RibServer.setClientFolder({ path: '', fullpath: `${__dirname}/client/build` });
+  RibServer.setRoute('*', `${__dirname}/client/build/index.html`);
 }
 
-app.listen(port, () => console.log(`Listening on port ${port}`));
+let myRib = new RibServer();
+myRib.onConnect((client) => {
+  myRib.sendMSG("Welcome to this example 😃", { query: client });
+});
+
+myRib.possibleClientFunctions(["sendMSG"]);
+
+function logMessage(msg) {
+  console.log(msg);
+}
+
+myRib.exposeFunction(logMessage);
+
+//const { User } = require('./server/Models');
+
+
+// app.post('/api/auth/signin', (req, res) => {
+//   User.findOne({ username: username }, function (err, user) {
+//     if (err) {
+//       res.send(400).json(err);
+//     } else {
+//       user.comparePassword(password, function(err, isMatch) {
+//         if(err) {
+//           res.send(403).json(err);
+//         }
+
+//         if (isMatch) {
+//           let token = jwt.sign({ username: username }, tokenKey, { expiresIn: '24h' });
+//           res.json({
+//             success: true,
+//             message: 'Authentication successful!',
+//             token: token
+//           });
+//         }
+//       })
+//     }
+//   });
+// });
