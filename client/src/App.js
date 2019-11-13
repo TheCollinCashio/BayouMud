@@ -46,7 +46,7 @@ export default function App() {
 
   return (
     <UserInfoContext.Provider className={classes.root} value={{ info: userInfo.info, setInfo: setUserInfo }}>
-      <ThemeProvider className={classes.root} theme={theme}>
+      <ThemeProvider theme={theme}>
         <div className={classes.root} style={{backgroundImage: uri}}>
           <AppBar />
           <Router>
