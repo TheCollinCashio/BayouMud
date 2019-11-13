@@ -31,7 +31,6 @@ const defaultTheme = createMuiTheme({
 const useStyles = makeStyles(theme => ({
     root: {
       backgroundRepeat: "repeat-y",
-      backgroundSize: "cover",
       minHeight: "100%"
     }
 }));
@@ -39,6 +38,7 @@ const useStyles = makeStyles(theme => ({
 export default function App() {
   let classes = useStyles();
   const [theme] = React.useState(defaultTheme);
+  console.log(theme);
   const [userInfo, setUserInfo] = React.useState({ info: null });
 
   const svgString = encodeURIComponent(renderToStaticMarkup(<Background theme={theme}/>));
