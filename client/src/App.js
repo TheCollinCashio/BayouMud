@@ -9,7 +9,7 @@ import { green, orange } from '@material-ui/core/colors';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { makeStyles } from '@material-ui/styles';
 
-import Background from './components/utils/Background';
+import Background from './components/Background';
 import './App.css';
 import { UserInfoContext } from './Contexts';
 import AppBar from './components/AppBar';
@@ -30,6 +30,7 @@ const defaultTheme = createMuiTheme({
 
 const useStyles = makeStyles(theme => ({
     root: {
+      backgroundSize: "cover",
       backgroundRepeat: "repeat-y",
       minHeight: "100%"
     }
@@ -38,7 +39,6 @@ const useStyles = makeStyles(theme => ({
 export default function App() {
   let classes = useStyles();
   const [theme] = React.useState(defaultTheme);
-  console.log(theme);
   const [userInfo, setUserInfo] = React.useState({ info: null });
 
   const svgString = encodeURIComponent(renderToStaticMarkup(<Background theme={theme}/>));
