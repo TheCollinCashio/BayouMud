@@ -4,7 +4,8 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
-let myRib = new RibClient("http://localhost:5000");
+let namespace = process.env.REACT_APP_PROXY || "/";
+let myRib = new RibClient(namespace);
 function sendMSG(message) {
     console.log(message);
 }
