@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const uniqueValidator = require('mongoose-unique-validator');
+mongoose.connect(process.env.DB_CONNECTION, { useNewUrlParser: true, useUnifiedTopology: true });
 const bcrypt = require('bcryptjs');
 
 let ObjectId = mongoose.Schema.Types.ObjectId;
@@ -54,7 +54,6 @@ let UserSchema = new mongoose.Schema({
     hash: String,
     salt: String
 }, { timeStamps: true });
-UserSchema.plugin(uniqueValidator, { message: 'is already taken.' });
 
 UserSchema.pre('save', function (next) {
     let user = this;

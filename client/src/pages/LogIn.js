@@ -10,6 +10,7 @@ import {
     Typography,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import RibClient from 'rib-client'
 
 import PasswordField from "../components/inputFields/PasswordField";
 
@@ -33,6 +34,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function LogIn() {
+    let myRib = new RibClient();
     const classes = useStyles();
     let [username, setUsername] = React.useState(null);
     let [password, setPassword] = React.useState(null);
@@ -52,7 +54,7 @@ export default function LogIn() {
 
     let handleSubmit = async event => {
         event.preventDefault();
-
+        myRib.login({ username: username, password: password })
         console.log(`Submit username: ${username} & password: ${password} to server`);
     }
 

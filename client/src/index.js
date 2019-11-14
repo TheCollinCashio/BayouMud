@@ -5,17 +5,15 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 
 let namespace = process.env.REACT_APP_PROXY || "/";
-let myRib = new RibClient(namespace);
+let myRib = new RibClient(namespace, true);
 
 function sendMSG(message) {
     console.log(message);
 }
-myRib.exposeFunction(sendMSG);
+myRib.exposeFunction(sendMSG, null, 'sendMSG');
 
 myRib.onConnect(() => {
-    console.log('ENV: ' + process.env.REACT_APP_ENV);
-    if (process.env.NODE_ENV !== 'production') {
-        //  allow rib to be accessed via console app
+    if (process.env.REACT_APP_ENV !== 'production') {
         console.log(`Let's develop great things 😀`);
         window.myRib = myRib;
     }
