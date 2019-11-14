@@ -2,8 +2,11 @@ const RibServer = require('rib-server').default;
 
 let PORT = process.env.PORT || 5000;
 RibServer.startServer(PORT, `Server Started on Port ${PORT}`);
-RibServer.setClientFolder({ path: '', fullPath: `${__dirname}/client/build` });
-RibServer.setRoute('*', `${__dirname}/client/build/index.html`);
+console.log(process.env.NODE_ENV)
+if (process.env.NODE_ENV !== 'local') {
+  RibServer.setClientFolder({ path: '', fullPath: `${__dirname}/client/build` });
+  RibServer.setRoute('*', `${__dirname}/client/build/index.html`);
+}
 
 let myRib = new RibServer();
 myRib.onConnect((client) => {
