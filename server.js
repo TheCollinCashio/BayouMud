@@ -53,6 +53,6 @@ async function login(userObj, client) {
 myRib.exposeFunctions([createUser, login, logMessage, getUserName, getSocketUserName]);
 
 myRib.onConnect((client) => {
-  myRib.sendMSG("Welcome to this example 😃", { query: client });
+  myRib.call("sendMSG", "Welcome to this example 😀", { query: client })
 });
 
