@@ -4,13 +4,18 @@
     "scripts": {
         "heroku-postbuild": "cd client && npm install && npm install --only=dev --no-shrinkwrap && npm run build",
         "client": "cd client && npm start",
-        "server": "nodemon",
+        "server": "concurrently \"redis-server\" \"mongod\" \"nodemon\"",
         "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\""
     },
     "dependencies": {
+        "@types/jest": "^24.0.25",
+        "@types/node": "^13.1.4",
+        "@types/react": "^16.9.17",
+        "@types/react-dom": "^16.9.4",
         "bcryptjs": "^2.4.3",
-        "mongoose": "^5.7.10",
-        "rib-server": "^2.0.4"
+        "mongoose": "^5.8.4",
+        "rib-server": "^2.0.7",
+        "typescript": "^3.7.4"
     },
     "devDependencies": {
         "concurrently": "^4.1.2",

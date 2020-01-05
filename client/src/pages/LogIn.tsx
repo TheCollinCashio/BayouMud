@@ -34,27 +34,27 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function LogIn() {
-    let myRib = new RibClient();
+    let myRib = new RibClient<{login: ({username, password}: {username: string, password: string}) => void}>();
     const classes = useStyles();
-    let [username, setUsername] = React.useState(null);
-    let [password, setPassword] = React.useState(null);
+    let [username, setUsername] = React.useState();
+    let [password, setPassword] = React.useState();
 
-    let handleUpdateUsername = event => {
+    let handleUpdateUsername = (event: any) => {
         setUsername(event.target.value);
     }
 
-    let handleUpdatePassword = event => {
+    let handleUpdatePassword = (event: any) => {
         setPassword(event.target.value);
     }
 
-    let handleReset = event => {
-        setUsername(null);
-        setPassword(null);
+    let handleReset = (event: any) => {
+        setUsername("");
+        setPassword("");
     }
 
-    let handleSubmit = async event => {
+    let handleSubmit = async (event: any) => {
         event.preventDefault();
-        myRib.login({ username: username, password: password })
+        myRib.serverFunctions.login({ username: username, password: password })
         console.log(`Submit username: ${username} & password: ${password} to server`);
     }
 
