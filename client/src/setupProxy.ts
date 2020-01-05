@@ -1,6 +1,6 @@
-const proxy = require('http-proxy-middleware');
+import proxy from 'http-proxy-middleware'
 
-module.exports = function(app) {
+module.exports = function(app: any) {
   app.use(
     '/api',
     proxy({

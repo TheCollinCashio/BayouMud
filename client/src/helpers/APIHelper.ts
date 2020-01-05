@@ -1,4 +1,4 @@
-export function Post(route, object) {
+export function Post(route: string, object: any) {
     return fetch(
         route,
         {

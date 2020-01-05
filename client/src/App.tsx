@@ -45,7 +45,7 @@ export default function App() {
   const uri = `url("data:image/svg+xml,${svgString}")`;
 
   return (
-    <UserInfoContext.Provider className={classes.root} value={{ info: userInfo.info, setInfo: setUserInfo }}>
+    <UserInfoContext.Provider value={{ info: userInfo.info, setInfo: setUserInfo }}>
       <ThemeProvider theme={theme}>
         <div className={classes.root} style={{backgroundImage: uri}}>
           <AppBar />
