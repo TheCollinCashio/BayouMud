@@ -5,6 +5,7 @@ let PORT = parseInt(process.env.PORT || '5000');
 RibServer.startServer(PORT, `Server Started on Port ${PORT}`);
 RibServer.setRedisUrl(process.env.REDIS_URL);
 
+// add comment here
 if (process.env.NODE_ENV !== 'local') {
   RibServer.setClientFolder({ path: '', fullPath: `${__dirname}/client/build` });
   RibServer.setRoute('*', `${__dirname}/client/build/index.html`);
