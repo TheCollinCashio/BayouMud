@@ -1,7 +1,7 @@
-const RibServer = require('rib-server').default;
-const { User } = require('./server/Models');
+import RibServer from 'rib-server';
+import { User } from './server/Models';
 
-let PORT = process.env.PORT || 5000;
+let PORT = parseInt(process.env.PORT || '5000');
 RibServer.startServer(PORT, `Server Started on Port ${PORT}`);
 RibServer.setRedisUrl(process.env.REDIS_URL);
 
