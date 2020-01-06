@@ -1,5 +1,7 @@
 .vscode/
 node_modules/
 client/node_modules/
+client/build/
 .env
 Procfile.test
+dump.rdb

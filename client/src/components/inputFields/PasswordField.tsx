@@ -10,7 +10,7 @@ import {
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 
-export default function PasswordField(props) {
+export default function PasswordField(props: {value?: string, onChange: (event: any) => void}) {
     const [showPassword, setVisibility] = React.useState(false)
 
     return (

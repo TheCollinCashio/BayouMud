@@ -9,7 +9,7 @@ import { green, orange } from '@material-ui/core/colors';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { makeStyles } from '@material-ui/styles';
 
-import Background from './components/utils/Background';
+import Background from './components/Background';
 import './App.css';
 import { UserInfoContext } from './Contexts';
 import AppBar from './components/AppBar';
@@ -30,8 +30,8 @@ const defaultTheme = createMuiTheme({
 
 const useStyles = makeStyles(theme => ({
     root: {
-      backgroundRepeat: "repeat-y",
       backgroundSize: "cover",
+      backgroundRepeat: "repeat-y",
       minHeight: "100%"
     }
 }));
@@ -45,8 +45,8 @@ export default function App() {
   const uri = `url("data:image/svg+xml,${svgString}")`;
 
   return (
-    <UserInfoContext.Provider className={classes.root} value={{ info: userInfo.info, setInfo: setUserInfo }}>
-      <ThemeProvider className={classes.root} theme={theme}>
+    <UserInfoContext.Provider value={{ info: userInfo.info, setInfo: setUserInfo }}>
+      <ThemeProvider theme={theme}>
         <div className={classes.root} style={{backgroundImage: uri}}>
           <AppBar />
           <Router>

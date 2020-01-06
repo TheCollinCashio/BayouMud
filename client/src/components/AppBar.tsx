@@ -26,10 +26,10 @@ const useStyles = makeStyles(theme => ({
 
 export default function MyAppBar() {
     const classes = useStyles();
-    const [anchorEl, setAnchorEl] = React.useState(null);
+    const [anchorEl, setAnchorEl] = React.useState();
     const open = Boolean(anchorEl);
 
-    const handleMenu = event => {
+    const handleMenu = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         setAnchorEl(event.currentTarget);
     };
 
@@ -52,7 +52,7 @@ export default function MyAppBar() {
                                         aria-label="shopping basket of current user"
                                         aria-controls="menu-appbar"
                                         aria-haspopup="false"
-                                        onClick={console.log("Shopping Basket Clicked")}
+                                        onClick={() => { console.log("Shopping Basket Clicked")}}
                                         color="inherit"
                                     >
                                         <ShoppingBasketIcon />
