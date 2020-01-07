@@ -1,4 +1,5 @@
 import RibServer from 'rib-server';
+import App from './App'
 import { User } from './server/Models';
 
 let PORT = parseInt(process.env.PORT || '5000');
@@ -11,9 +12,9 @@ if (process.env.NODE_ENV !== 'local') {
   RibServer.setRoute('*', `${__dirname}/client/build/index.html`);
 }
 
-let myRib = new RibServer();
+const myRib = App();
 
-function getUserName(client) {
+async function getUserName(client) {
   return client.username
 }
 
@@ -54,6 +55,6 @@ async function login(userObj, client) {
 myRib.exposeFunctions([createUser, login, logMessage, getUserName, getSocketUserName]);
 
 myRib.onConnect((client) => {
-  myRib.call("sendMSG", "Welcome to this example 😀", { query: client })
+  myRib.clientFunctions.sendMSG("Welcome to this example 😀", { query: client })
 });
 

@@ -1,6 +1,6 @@
 import { Schema, Document, model } from 'mongoose';
 import { hash, compare } from 'bcryptjs';
-import IUser from '../../interfaces/IUser';
+import IUser from '../../interfaces/models/IUser';
 
 interface IUserModel extends IUser, Document {
     comparePassword(candidatePassword: string, callback: (err, isMatch: boolean) => void): void
